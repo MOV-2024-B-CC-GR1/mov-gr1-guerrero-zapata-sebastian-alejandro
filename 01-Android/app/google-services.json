@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902157550045",
+    "project_id": "cc-2024b-mov-gr1-sagz",
+    "storage_bucket": "cc-2024b-mov-gr1-sagz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902157550045:android:0efd2542296c336a17f634",
+        "android_client_info": {
+          "package_name": "com.example.ccgr12024b_sagz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq5Q_k94kV0468df4lvRAEQlWDp-ZqOKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
