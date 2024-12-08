@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ccgr12024b_SAGZ</string>
+    <string name="saludo">2 LANDS ES</string>
+    <string name="Pestaniauno">Hello Friends</string>
+    <color name="saludo_color">#CD8915</color>
+    <string name="condicion1">ccgr12024b_SAGZ</string>
 </resources>
