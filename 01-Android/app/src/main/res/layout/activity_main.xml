@@ -16,10 +16,9 @@
         android:textColor="#D7B5B5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.299"
+        app:layout_constraintVertical_bias="0.31"
         tools:text="@string/saludo" />
 
     <Button
@@ -32,5 +31,14 @@
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
         app:layout_constraintVertical_bias="0.517" />
+
+    <Button
+        android:id="@+id/btn_ir_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="list view"
+        app:layout_constraintEnd_toEndOf="@+id/btn_ciclo_vida"
+        app:layout_constraintStart_toStartOf="@+id/btn_ciclo_vida"
+        tools:layout_editor_absoluteY="282dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,10 +18,15 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val botonCicloVidad = findViewById<Button>(R.id.btn_ciclo_vida)
-        botonCicloVidad
+        val botonCicloVida = findViewById<Button>(R.id.btn_ciclo_vida)
+        botonCicloVida
             .setOnClickListener {
                 irActividad(ACicloVida::class.java)
+            }
+        val botonIrListView = findViewById<Button>(R.id.btn_ir_list_view)
+        botonCicloVida
+            .setOnClickListener {
+                irActividad(BListView::class.java)
             }
     }
     fun irActividad(clase:Class<*>){

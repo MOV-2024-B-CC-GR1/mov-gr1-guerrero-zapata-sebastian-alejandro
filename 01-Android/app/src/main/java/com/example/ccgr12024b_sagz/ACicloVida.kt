@@ -49,7 +49,7 @@ class ACicloVida : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run{
             //guardar las variables
-            putString("variableTextoGuardadp", textoGlobal)
+            putString("variableTextoGuardado", textoGlobal)
         }
         super.onSaveInstanceState(outState)
     }
