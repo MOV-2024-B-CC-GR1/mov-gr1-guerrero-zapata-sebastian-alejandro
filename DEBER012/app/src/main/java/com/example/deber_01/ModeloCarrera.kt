@@ -1,10 +1,9 @@
 package com.example.deber_01
 
-class ModeloCarrera (
-    var id: Int,
-    var nombre: String,
-    var duracion: Double,
-    var materias: List<String>,
-    var idFacultad: Int // Este campo es obligatorio
-){
-}
+data class ModeloCarrera(
+    val id: Int = 0,
+    val nombre: String,
+    val duracion: Double,
+    val materias: List<String>,
+    val idFacultad: Int
+)

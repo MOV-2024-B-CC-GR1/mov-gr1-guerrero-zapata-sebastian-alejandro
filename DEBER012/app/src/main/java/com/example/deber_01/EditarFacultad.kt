@@ -3,22 +3,19 @@ package com.example.deber_01
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Switch
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import android.widget.Toast
 
 class EditarFacultad : AppCompatActivity() {
+    private lateinit var dao: FacultadDAO
+    private var facultadId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_editar_facultad)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cl_EditarFacultad)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        dao = FacultadDAO(this)
 
         // Obtener vistas
         val inputNombre = findViewById<TextInputEditText>(R.id.Input_NombreFacultad)
@@ -28,8 +25,8 @@ class EditarFacultad : AppCompatActivity() {
         val btnCancelar = findViewById<Button>(R.id.Btn_CancelarEdicion)
 
         // Obtener datos del intent
-        val index = intent.getIntExtra("index", -1)
-        val nombre = intent.getStringExtra("nombre")
+        facultadId = intent.getIntExtra("id", -1)
+        val nombre = intent.getStringExtra("nombre") ?: ""
         val presupuesto = intent.getDoubleExtra("presupuesto", 0.0)
         val activa = intent.getBooleanExtra("activa", false)
 
@@ -40,20 +37,24 @@ class EditarFacultad : AppCompatActivity() {
 
         // Confirmar edición
         btnConfirmar.setOnClickListener {
-            // Actualizar datos en la lista
-            val facultadEditada = BaseDatosFacultad.arregloFacultad[index]
-            facultadEditada.nombre = inputNombre.text.toString()
-            facultadEditada.presupuesto = inputPresupuesto.text.toString().toDouble()
-            facultadEditada.activa = switchActiva.isChecked
-            setResult(RESULT_OK)
-            // Finalizar actividad
-            finish()
+            val nuevoNombre = inputNombre.text.toString()
+            val nuevoPresupuesto = inputPresupuesto.text.toString().toDoubleOrNull() ?: 0.0
+            val nuevaActiva = switchActiva.isChecked
+
+            if (facultadId != -1) {
+                dao.actualizarFacultad(facultadId, nuevoNombre, nuevoPresupuesto, nuevaActiva)
+                Toast.makeText(this, "Facultad actualizada", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK)
+                finish()
+            } else {
+                Toast.makeText(this, "Error al actualizar", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Cancelar edición
         btnCancelar.setOnClickListener {
             setResult(RESULT_CANCELED)
-            finish() // Volver a la actividad principal sin cambios
+            finish()
         }
     }
 }

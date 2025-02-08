@@ -1,17 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.deber_01"
-    compileSdk = 35
+    namespace = "com.example.deber01mascotas"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.deber_01"
+        applicationId = "com.example.deber01mascotas"
         minSdk = 27
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -46,8 +45,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")  // Asegúrate de tener kotlin-kapt habilitado
-    implementation("androidx.room:room-ktx:2.6.1")
-
 }

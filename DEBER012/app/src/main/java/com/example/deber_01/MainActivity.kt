@@ -5,77 +5,64 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import android.widget.Toast // Importación de Toast
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var adapter: ArrayAdapter<Facultad>
+    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var dao: FacultadDAO
     private var selectedItemIndex: Int? = null
+    private var facultades: MutableList<Facultad> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        dao = FacultadDAO(this)
+
         val listViewFacultades = findViewById<ListView>(R.id.Ls_Facultades)
-        //Botones
         val btnEliminar = findViewById<Button>(R.id.Btn_EliminarFacultad)
         val btnEditar = findViewById<Button>(R.id.Btn_EditarFacultad)
         val btnAgregar = findViewById<Button>(R.id.Btn_AgregarFacultad)
         val btnListadoCarreras = findViewById<Button>(R.id.Btn_ListadoCarreras)
-        //
 
-        val facultades = BaseDatosFacultad.arregloFacultad
-
-        adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            facultades
-        )
-        listViewFacultades.adapter = adapter
+        // Cargar facultades desde SQLite
+        cargarFacultades()
 
         // Configurar clic en los elementos del ListView
         listViewFacultades.setOnItemClickListener { _, _, position, _ ->
             selectedItemIndex = position
             val facultadSeleccionada = facultades[position]
-            Toast.makeText(
-                this,
-                "Seleccionado: ${facultadSeleccionada.nombre}",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this, "Seleccionado: ${facultadSeleccionada.nombre}", Toast.LENGTH_SHORT).show()
         }
 
         // Configurar acción del botón Eliminar
         btnEliminar.setOnClickListener {
             if (selectedItemIndex != null) {
-                val index = selectedItemIndex!!
-                facultades.removeAt(index)
-                adapter.notifyDataSetChanged()
+                val facultadEliminada = facultades[selectedItemIndex!!]
+                dao.eliminarFacultad(facultadEliminada.id)
+                cargarFacultades() // Recargar lista después de eliminar
                 selectedItemIndex = null
                 Toast.makeText(this, "Facultad eliminada", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Selecciona una facultad para eliminar", Toast.LENGTH_SHORT).show()
             }
         }
+
         // Configurar acción del botón Editar
         btnEditar.setOnClickListener {
             if (selectedItemIndex != null) {
-                val index = selectedItemIndex!!
-                val facultadSeleccionada = facultades[index]
-
-                // Crear intent para cambiar a EditarFacultad
-                val intent = Intent(this, EditarFacultad::class.java)
-                intent.putExtra("index", index) // Pasar índice
-                intent.putExtra("nombre", facultadSeleccionada.nombre)
-                intent.putExtra("presupuesto", facultadSeleccionada.presupuesto)
-                intent.putExtra("activa", facultadSeleccionada.activa)
+                val facultadSeleccionada = facultades[selectedItemIndex!!]
+                val intent = Intent(this, EditarFacultad::class.java).apply {
+                    putExtra("id", facultadSeleccionada.id)
+                    putExtra("nombre", facultadSeleccionada.nombre)
+                    putExtra("presupuesto", facultadSeleccionada.presupuesto)
+                    putExtra("activa", facultadSeleccionada.activa)
+                }
                 editFacultadLauncher.launch(intent)
             } else {
-                Toast.makeText(this, "Selecciona una facultad para editar", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, "Selecciona una facultad para editar", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -90,24 +77,28 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    // actualizar datos al volver de Editar
+
     private val editFacultadLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                // Actualizar la lista con los cambios
-                adapter.notifyDataSetChanged()
+                cargarFacultades() // Recargar datos después de editar
                 Toast.makeText(this, "Facultad actualizada", Toast.LENGTH_SHORT).show()
             }
         }
 
-    // Registrar el ActivityResultLauncher para agregar facultades
     private val agregarFacultadLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                // Actualizar la lista con los cambios
-                adapter.notifyDataSetChanged()
+                cargarFacultades() // Recargar datos después de agregar
                 Toast.makeText(this, "Facultad agregada", Toast.LENGTH_SHORT).show()
             }
         }
 
+    private fun cargarFacultades() {
+        facultades = dao.obtenerFacultades().toMutableList()
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, facultades.map {
+            "ID: ${it.id}\nNombre: ${it.nombre}\nPresupuesto: ${it.presupuesto}\nActiva: ${if (it.activa) "Sí" else "No"}"
+        })
+        findViewById<ListView>(R.id.Ls_Facultades).adapter = adapter
+    }
 }
