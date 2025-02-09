@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         val btnEditar = findViewById<Button>(R.id.Btn_EditarFacultad)
         val btnAgregar = findViewById<Button>(R.id.Btn_AgregarFacultad)
         val btnListadoCarreras = findViewById<Button>(R.id.Btn_ListadoCarreras)
+        // Referencia al botón "Mapa" agregado en el layout
+        val btnMapa = findViewById<Button>(R.id.btn_mapa)
 
         // Cargar facultades desde SQLite
         cargarFacultades()
@@ -75,6 +77,22 @@ class MainActivity : AppCompatActivity() {
         btnListadoCarreras.setOnClickListener {
             val intent = Intent(this, Carreras::class.java)
             startActivity(intent)
+        }
+
+        // Configurar acción del botón Mapa
+        btnMapa.setOnClickListener {
+            if (selectedItemIndex != null) {
+                val facultadSeleccionada = facultades[selectedItemIndex!!]
+                // Se asume que la clase Facultad cuenta con los atributos latitud y longitud
+                val intent = Intent(this, MapaActivity::class.java).apply {
+                    putExtra("latitud", facultadSeleccionada.latitud)
+                    putExtra("longitud", facultadSeleccionada.longitud)
+                    putExtra("nombre", facultadSeleccionada.nombre)
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Seleccione una facultad para ver su ubicación en el mapa", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

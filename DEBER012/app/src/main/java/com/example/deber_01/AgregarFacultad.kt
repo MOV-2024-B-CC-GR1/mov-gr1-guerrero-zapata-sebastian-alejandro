@@ -18,18 +18,23 @@ class AgregarFacultad : AppCompatActivity() {
 
         val inputNombre = findViewById<EditText>(R.id.Input_NombreFacultad_EditText)
         val inputPresupuesto = findViewById<EditText>(R.id.Input_PresupuestoFacultad)
+        val inputLatitud = findViewById<EditText>(R.id.Input_LatitudFacultad)  // Nuevo campo
+        val inputLongitud = findViewById<EditText>(R.id.Input_LongitudFacultad)
         val switchActiva = findViewById<Switch>(R.id.switch1)
         val btnAgregar = findViewById<Button>(R.id.Btn_AgregarFacultad)
         val btnCancelar = findViewById<Button>(R.id.Btn_CancelarAgregar)
 
+
         btnAgregar.setOnClickListener {
             val nombre = inputNombre.text.toString().trim()
             val presupuesto = inputPresupuesto.text.toString().toDoubleOrNull() ?: 0.0
+            val latitud = inputLatitud.text.toString().toDoubleOrNull() ?: 0.0
+            val longitud = inputLongitud.text.toString().toDoubleOrNull() ?: 0.0
             val activa = switchActiva.isChecked
 
             if (nombre.isNotEmpty()) {
                 // Insertar en la base de datos
-                val id = dao.insertarFacultad(nombre, presupuesto, activa)
+                val id = dao.insertarFacultad(nombre, presupuesto, activa, latitud, longitud)
 
                 if (id != -1L) {
                     Toast.makeText(this, "Facultad agregada exitosamente", Toast.LENGTH_SHORT).show()

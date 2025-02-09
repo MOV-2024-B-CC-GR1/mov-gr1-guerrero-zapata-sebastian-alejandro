@@ -29,7 +29,9 @@
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     nombre TEXT NOT NULL,
                     presupuesto REAL NOT NULL,
-                    activa INTEGER NOT NULL
+                    activa INTEGER NOT NULL,
+                    latitud REAL,
+                    longitud REAL
                 )
             """
 
