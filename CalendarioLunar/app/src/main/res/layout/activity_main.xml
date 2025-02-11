@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo1"
+    android:background="@drawable/fui_idp_button_background_apple"
     tools:context=".MainActivity">
 
     <!--text view for displaying the selected date-->
@@ -43,7 +43,7 @@
                     android:backgroundTint="#A1000000"
                     android:shadowColor="#FFFFFF"
                     android:text="Ver Fase"
-                    android:textColor="#77A6DE"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -69,13 +69,13 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="30dp"
-            android:background="#B2F4B19C"
+            android:background="#B2373535"
             android:dateTextAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#FFFFFF"
-            android:unfocusedMonthDateColor="#8BFFFFFF"
+            android:unfocusedMonthDateColor="#8BF6EEEE"
             android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2"
             android:weekNumberColor="#8FFFFFFF"
-            android:weekSeparatorLineColor="#BF08002A" />
+            android:weekSeparatorLineColor="#BF361C87" />
 
         <TextView
             android:id="@+id/ListaTerminos"
@@ -92,7 +92,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#B277A6DE"
+            android:background="#B2000000"
             android:orientation="horizontal">
 
             <EditText
@@ -113,9 +113,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="#A1000000"
+                android:backgroundTint="#D0972D"
                 android:text="Guardar Evento"
-                android:textColor="#77A6DE" />
+                android:textColor="#EFE8E8" />
 
         </LinearLayout>
 
@@ -139,7 +139,7 @@
                 android:id="@+id/MostarEvento"
                 android:layout_width="match_parent"
                 android:layout_height="94dp"
-                android:background="#6FFFFFFF"
+                android:background="#6F000000"
                 android:gravity="center"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
@@ -152,18 +152,12 @@
                 android:layout_weight="1"
                 android:backgroundTint="#A1000000"
                 android:text="Glosario"
-                android:textColor="#77A6DE"
+                android:textColor="#F2F3F4"
                 android:textSize="15sp" />
-
 
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_imagen"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/logo3"></ImageView>
     </LinearLayout>
 
 </RelativeLayout>

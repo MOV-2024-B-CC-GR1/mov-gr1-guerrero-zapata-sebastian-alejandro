@@ -49,8 +49,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun registrarUsuarioPorPrimeraVez(usuario: IdpResponse){
-        /* //mireya.ivonne1234@gmail.com
-        //mire01*/
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

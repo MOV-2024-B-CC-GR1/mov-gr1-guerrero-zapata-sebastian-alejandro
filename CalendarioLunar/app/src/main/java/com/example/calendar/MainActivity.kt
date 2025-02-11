@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // initializing variables of
+
         // list view with their ids.
         var sendDate = "11/8/1999"
         dateTV = findViewById(R.id.idTVDate)

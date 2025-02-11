@@ -22,7 +22,7 @@ class moonDisplay : AppCompatActivity() {
         name = findViewById(R.id.nameOfPhase)
         heading.setText(dateValue.toString())
         name.setText(phase.toString())
-
+        // initializing variables of
         if(phase == "Primer Cuarto Creciente")
             moonPic.setImageResource(R.drawable.firs0);
         else if(phase == "Creciente Creciente")
